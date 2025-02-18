@@ -15,10 +15,13 @@ app.get("/about", function(req, res){
     res.send("Navštívili jste server: Dominik");
 });
 
+app.get("/messages", function(req, res){
+    res.send(messages);
+});
+
 app.post("/send", function(req, res){
     console.log(req.body);
     messages.push(req.body);
-    console.log(messages);
 });
 
 app.listen(port, function(){
