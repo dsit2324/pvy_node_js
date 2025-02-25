@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Messenger</title>
 </head>
 <body>
@@ -11,19 +12,28 @@
     </header>
     <main>
         <form action="/send" method="post">
-            <p>
-                <input type="text" name="username" placeholder="Vaše jméno" required>
-            </p>
-            <p>
-                <textarea name="message" placeholder="Napište zprávu..." required></textarea>
-            </p>
-            <p>
-                <button type="submit">Odeslat</button>
-            </p>
-        </form> 
+            <p><input type="text" name="username" placeholder="Vaše jméno" required></p>
+            <p><textarea name="message" placeholder="Napište zprávu..." required></textarea></p>
+            <p><button type="submit">Odeslat</button></p>            
+        </form>  
+        <div id="messages"></div>
     </main>
     <footer>
-        <p>&copy; 2025 - IT2 - Dominik</p>
+        <p>&copy; 2025 - IT2 - Dominik Svoboda</p>
     </footer>
+    <script>
+        async function loadMessages() {
+            const url = "http://localhost:3000/messages";
+            const response = await fetch(url);
+            const messages = await response.json();
+            console.log(messages);
+            let messagesDiv = messages.map(msg => `<div class="blockMessage"><h3>${msg.username}</h3><p>${msg.message}</p></div>`).join('\n');
+            document.getElementById("messages").innerHTML = messagesDiv;
+        }
+
+        loadMessages();
+        setInterval(loadMessages, 1000);
+
+    </script>
 </body>
 </html>
