@@ -1,0 +1,13 @@
+.blockMessage {
+    background-color: aquamarine;
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #666;
+}
+
+.blockMessage h3 {
+    font-size: 1em;
+    color: green;
+    margin: 0;
+    padding: 0;
+}
