@@ -22,6 +22,10 @@ app.post("/send", function(req, res) {
 
 app.get("/messages", function(req, res) {
     const search = req.query.search.toLocaleLowerCase();
+    const messages = storage.getMessages();
+    const filteredMessages = messages.filter(msg => {
+        msg.message.toLocaleLowerCase().ucludes(search);
+    })
     res.json(storage.getMessages());
 
 });
