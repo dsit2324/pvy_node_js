@@ -16,6 +16,9 @@
             <p><textarea name="message" placeholder="Napište zprávu..." required></textarea></p>
             <p><button type="submit">Odeslat</button></p>            
         </form>  
+        <div>
+            <input type = "text" id = "search" oninput = "loadMessages()">
+        </div>
         <div id="messages"></div>
     </main>
     <footer>
@@ -23,11 +26,12 @@
     </footer>
     <script>
         async function loadMessages() {
-            const url = "http://localhost:3000/messages";
+            const searchQuery = document.getElementById("search").value;
+            const url = "http://localhost:3000/messages?search=" + encodeURIComponent(searchQuery);
             const response = await fetch(url);
             const messages = await response.json();
             console.log(messages);
-            let messagesDiv = messages.map(msg => `<div class="blockMessage"><h3>${msg.username}</h3><p>${msg.message}</p></div>`).join('\n');
+            let messagesDiv = messages.map(msg => `<div class="blockMessage"><h3>${msg.username}</h3><p>${msg.message}</p><p>IP: ${msg.ip}</p></div>`).join('\n');
             document.getElementById("messages").innerHTML = messagesDiv;
         }
 
