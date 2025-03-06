@@ -21,6 +21,7 @@ app.post("/send", function(req, res) {
 });
 
 app.get("/messages", function(req, res) {
+    const search = req.query.search.toLocaleLowerCase();
     res.json(storage.getMessages());
 
 });
